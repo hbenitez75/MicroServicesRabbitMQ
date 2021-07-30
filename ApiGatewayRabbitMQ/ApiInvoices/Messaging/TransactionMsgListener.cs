@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using ApiInvoices.Models;
+using Microsoft.Extensions.Options;
+using System.Text.Json;
+using System.Text;
+
+namespace ApiInvoices.Messaging
+{
+    public class TransactionMsgListener : BackgroundService
+    {
+        public string host { set; get; }
+        public string userName { set; get; }
+        public string password { set; get; }
+        public string queueName { set; get; }
+        private IConnection connection;
+        private IModel channel;
+        public TransactionMsgListener(IOptions<RabbitMQConfiguration> optionsRabbitMQ)
+        {
+            host = optionsRabbitMQ.Value.HostName;
+            userName = optionsRabbitMQ.Value.UserName;
+            password = optionsRabbitMQ.Value.Password;
+            queueName = optionsRabbitMQ.Value.QueueName;
+            CreateConnection();
+            channel = connection.CreateModel();
+         
+        }
+        protected override Task ExecuteAsync(CancellationToken token)
+        {
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += (ch, ea) =>
+            {
+                var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+                var transaction = JsonSerializer.Deserialize<Movements>(content);
+
+                
+
+                channel.BasicAck(ea.DeliveryTag, false);
+            };
+            channel.BasicConsume(queueName, false, consumer); 
+            return Task.CompletedTask;
+        }
+        private void CreateConnection()
+        {
+            try
+            {
+                var factory = new ConnectionFactory
+                {
+                    HostName = host,
+                    UserName = userName,
+                    Password = password
+                };
+                connection = factory.CreateConnection();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not create connection: {ex.Message}");
+            }
+        }
+
+    }
+}
