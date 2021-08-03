@@ -34,7 +34,9 @@ namespace ApiInvoices.Messaging
             userName = optionsRabbitMQ.Value.UserName;
             password = optionsRabbitMQ.Value.Password;
             queueName = optionsRabbitMQ.Value.QueueName;
+            
             CreateConnection();
+            connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
             channel = connection.CreateModel();
             updateTransactionInInvoices = _updateTransactionInInvoices;
         }
@@ -71,6 +73,9 @@ namespace ApiInvoices.Messaging
             {
                 Console.WriteLine($"Could not create connection: {ex.Message}");
             }
+        }
+        private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
+        {
         }
 
     }

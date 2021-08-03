@@ -21,22 +21,23 @@ namespace ApiInvoices.Data
             string query = @"SELECT name FROM sqlite_master WHERE type='table' AND name = 'Invoice';";
             var invoiceTable = connection.Query<string>(query);
             var invoiceTableName = invoiceTable.FirstOrDefault();
-            if (!string.IsNullOrEmpty(invoiceTableName) && invoiceTableName == "Invoice")
-                return;
-            connection.ExecuteAsync("Create Table Invoice (" +
-                "InvoiceNumber VARCHAR(100),"+
-                "Description VARCHAR(100), " +
-                "InvoiceDate DATE, " +
-                "Amount      NUMERIC, " +
-                "Paid        INTEGER, "+
-                "PaidDate    DATE);");
+            if (!(!string.IsNullOrEmpty(invoiceTableName) && invoiceTableName == "Invoice"))
+            { 
+                
+                connection.ExecuteAsync("Create Table Invoice (" +
+                   "InvoiceNumber VARCHAR(100),"+
+                   "Description VARCHAR(100), " +
+                   "InvoiceDate DATE, " +
+                   "Amount      NUMERIC, " +
+                   "Paid        INTEGER, "+
+                   "PaidDate    DATE);");
 
-            // The table below wont be necessary it we had use rabbitmq..
+            }
                         
-                var table = connection.Query<string>("SELECT name FROM sqlite_master WHERE type='table' AND name = 'Movements';");
-                var tableName = table.FirstOrDefault();
-                if (!string.IsNullOrEmpty(tableName) && tableName == "Movements")
-                    return;
+            var table = connection.Query<string>("SELECT name FROM sqlite_master WHERE type='table' AND name = 'Movements';");
+            var tableName = table.FirstOrDefault();
+            if (!string.IsNullOrEmpty(tableName) && tableName == "Movements")
+                 return;
 
             connection.Execute("Create Table Movements (" +
             "Description     VARCHAR(100), " +

@@ -32,7 +32,7 @@ namespace ApiBillableTransaction.Messaging
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+                    channel.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
                      
                     var json = JsonSerializer.Serialize(movements);
                     var body = System.Text.Encoding.UTF8.GetBytes(json);
