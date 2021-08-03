@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiInvoices.Messaging;
+using ApiInvoices.Services;
 
 namespace ApiInvoices
 {
@@ -30,11 +31,12 @@ namespace ApiInvoices
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<RabbitMQConfiguration>(Configuration.GetSection("RabbitMq"));
-            services.AddHostedService<TransactionMsgListener>();
+         //   services.AddHostedService<TransactionMsgListener>();
             services.AddControllers();
             services.AddSingleton(new DataBaseName { Name = Configuration["DatabaseName"] });
             services.AddSingleton<IDataBaseCreate, DataBaseCreate>();
             services.AddSingleton<IInvoiceRepository, InvoiceRepository>();
+            services.AddSingleton<IUpdateTransactionInInvoices, UpdateTransactionInInvoices>();
 
             services.AddSwaggerGen(c =>
             {

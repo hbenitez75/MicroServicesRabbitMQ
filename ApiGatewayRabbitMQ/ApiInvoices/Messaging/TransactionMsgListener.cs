@@ -10,6 +10,9 @@ using ApiInvoices.Models;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
 using System.Text;
+using ApiInvoices.InvoiceManager;
+using ApiInvoices.Services;
+
 
 namespace ApiInvoices.Messaging
 {
@@ -21,7 +24,11 @@ namespace ApiInvoices.Messaging
         public string queueName { set; get; }
         private IConnection connection;
         private IModel channel;
-        public TransactionMsgListener(IOptions<RabbitMQConfiguration> optionsRabbitMQ)
+        private readonly IInvoiceRepository invoiceRepository;
+        private readonly  IUpdateTransactionInInvoices updateTransactionInInvoices;
+        public TransactionMsgListener(IOptions<RabbitMQConfiguration> optionsRabbitMQ,
+                              IInvoiceRepository _invoiceRepository,
+                              IUpdateTransactionInInvoices _updateTransactionInInvoices)
         {
             host = optionsRabbitMQ.Value.HostName;
             userName = optionsRabbitMQ.Value.UserName;
@@ -29,7 +36,7 @@ namespace ApiInvoices.Messaging
             queueName = optionsRabbitMQ.Value.QueueName;
             CreateConnection();
             channel = connection.CreateModel();
-         
+            updateTransactionInInvoices = _updateTransactionInInvoices;
         }
         protected override Task ExecuteAsync(CancellationToken token)
         {
@@ -39,7 +46,7 @@ namespace ApiInvoices.Messaging
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
                 var transaction = JsonSerializer.Deserialize<Movements>(content);
 
-                
+                updateTransactionInInvoices.UpdateTransaction(transaction);
 
                 channel.BasicAck(ea.DeliveryTag, false);
             };
@@ -52,9 +59,11 @@ namespace ApiInvoices.Messaging
             {
                 var factory = new ConnectionFactory
                 {
+
                     HostName = host,
-                    UserName = userName,
-                    Password = password
+                    UserName = ConnectionFactory.DefaultUser,
+                    Password = ConnectionFactory.DefaultPass,
+                    Port = AmqpTcpEndpoint.UseDefaultPort
                 };
                 connection = factory.CreateConnection();
             }

@@ -61,9 +61,9 @@ namespace ApiBillableTransaction.Messaging
                 var factory = new ConnectionFactory
                 {
                     HostName = host,
-                    UserName = userName,
-                    Password = password,
-                    Port = port
+                    UserName = ConnectionFactory.DefaultUser,
+                    Password = ConnectionFactory.DefaultPass,
+                    Port = AmqpTcpEndpoint.UseDefaultPort
                 };
                 connection = factory.CreateConnection();
             }
