@@ -9,17 +9,17 @@ using Microsoft.Data.Sqlite;
 
 namespace ApiInvoices.Services
 {
-    public class GenerateInvoices
+    public class GenerateInvoices :IGenerateInvoices
     {
         public readonly DataBaseName dataBaseName;
-        public readonly InvoiceRepository invoiceRepository;
-        public GenerateInvoices(DataBaseName _databaseName,InvoiceRepository _invoiceRepository)
+        public readonly IInvoiceRepository invoiceRepository;
+        public GenerateInvoices(DataBaseName _databaseName,IInvoiceRepository _invoiceRepository)
         {
             dataBaseName = _databaseName;
             invoiceRepository = _invoiceRepository;
         }
 
-        public async Task<IEnumerable<Invoice>> GetInvoicesByDate(DateTime from, DateTime to )
+        public async Task<IEnumerable<Invoice>> GetInvoicesByRange(DateTime from, DateTime to )
         {
             var connection = new SqliteConnection(dataBaseName.Name);
             var status = TransactionStatus.Billed;

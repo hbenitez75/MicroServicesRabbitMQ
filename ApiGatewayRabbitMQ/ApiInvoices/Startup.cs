@@ -37,10 +37,18 @@ namespace ApiInvoices
             services.AddSingleton<IDataBaseCreate, DataBaseCreate>();
             services.AddSingleton<IInvoiceRepository, InvoiceRepository>();
             services.AddSingleton<IUpdateTransactionInInvoices, UpdateTransactionInInvoices>();
+            services.AddSingleton<IGenerateInvoices, GenerateInvoices>();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiInvoices", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiInvoices", Version = "v1",
+                    Description = "This Microservice Gets Transactions and creates Invoices" ,
+                    Contact = new OpenApiContact{Name = "Hector Benitez",
+                                                 Email = "hbenitez@arkusnexus.com"
+                    },
+                    License = new OpenApiLicense { Name = "ArkusNexus"}
+                }
+                 );
             });
         }
 

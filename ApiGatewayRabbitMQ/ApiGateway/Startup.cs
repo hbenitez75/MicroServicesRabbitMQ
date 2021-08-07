@@ -37,7 +37,11 @@ namespace ApiGateway
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiGateway", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiGateway", Version = "v1", 
+                             Description = "Apigateway to make client service calls pristine" ,
+                             Contact = new OpenApiContact { Name = "Hector Benitez ", Email = "hbenitez@arkusnexus.com"},
+                             License = new OpenApiLicense { Name = "Use under ArkusNexus License" }
+                });
             });
             services.AddSwaggerForOcelot(Configuration);
             

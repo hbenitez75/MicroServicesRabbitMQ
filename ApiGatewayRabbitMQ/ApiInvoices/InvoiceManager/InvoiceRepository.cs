@@ -46,6 +46,7 @@ namespace ApiInvoices.InvoiceManager
                 "Paid,PaidDate WHERE InvoiceNumber = @invoiceNumber;");
 
         }
+        
         public async Task Update(string invoiceNumber)
         {
             var connection = new SqliteConnection(dataBaseName.Name);
@@ -53,5 +54,7 @@ namespace ApiInvoices.InvoiceManager
                 "WHERE InvoiceNumber = @invoiceNumber;");
 
         }
+        
     }
+
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiInvoices.Data;
 using ApiInvoices.InvoiceManager;
+using ApiInvoices.Services;
 
 
 namespace ApiInvoices.Controllers
@@ -16,9 +17,12 @@ namespace ApiInvoices.Controllers
     public class InvoicingController : ControllerBase
     {
         private readonly IInvoiceRepository invoiceRepository;
-        public InvoicingController(IInvoiceRepository _invoiceRepository)
+        private readonly IGenerateInvoices generateInvoices;
+        public InvoicingController(IInvoiceRepository _invoiceRepository,
+            IGenerateInvoices _generateInvoices)
         {
             invoiceRepository = _invoiceRepository;
+            generateInvoices = _generateInvoices;
         }
         
         [HttpPut]     
@@ -26,13 +30,15 @@ namespace ApiInvoices.Controllers
         {
             await invoiceRepository.Update(invoice);
         }
-        /*
-        [HttpPut]
-        public async Task Put([FromBody] string invoiceNumber )
+        
+        [HttpGet]
+        [Route("GetByRange")]
+        public async Task<IEnumerable<Invoice>> GetByRange( DateTime from,DateTime to  )
         {
-            await invoiceRepository.Update(invoiceNumber);
+            
+            return await generateInvoices.GetInvoicesByRange(from, to);
         }
-        */
+        
         [HttpPost]
         public async Task Post([FromBody] Invoice invoice)
         {
@@ -40,6 +46,7 @@ namespace ApiInvoices.Controllers
         }
 
         [HttpGet]
+        [Route("Get")]
         public  async Task<IEnumerable<Invoice>> Get()
         {
              return await invoiceRepository.GetInvoices();
