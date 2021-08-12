@@ -6,6 +6,8 @@ using ApiInvoices.Data;
 using ApiInvoices.InvoiceManager;
 using Dapper;
 using Microsoft.Data.Sqlite;
+using ApiInvoices.Models;
+using System.Globalization;
 
 namespace ApiInvoices.Services
 {
@@ -21,17 +23,30 @@ namespace ApiInvoices.Services
 
         public async Task<IEnumerable<Invoice>> GetInvoicesByRange(DateTime from, DateTime to )
         {
+            
             var connection = new SqliteConnection(dataBaseName.Name);
-            var status = TransactionStatus.Billed;
             string guid = Guid.NewGuid().ToString("D");
-            var queryBill = @"UPDATE  Movements SET status =@status, " +
-                "InvoiceNumber = @guid "+
-                " WHERE BillDate BETWEEN @_from AND @_to;";
-            await connection.ExecuteAsync(queryBill);
-            var invoices = connection.QueryAsync<Invoice>("SELECT 1,'My Invoice',DATE('now'),Date(now,'-1 MONTHS'),SUM(Amount),0 FROM Movements GROUP BY InvoiceNumber ;");
-
-            Invoice invoice= invoices.Result.SingleOrDefault(x => x.InvoiceNumber == guid);
-
+            var transactionstoBill= await connection.QueryAsync<Movements>(@"SELECT rowId as Id, Description, BillDate, Amount, Status, InvoiceNumber " +
+               " FROM Movements WHERE  TransactionDate < @TransactionDateTo "+
+               "AND TransactionDate > @TransactionDateFrom ", new {TransactionDateTo = to,TransactionDateFrom = from});
+            int[] ids = (from x in transactionstoBill select x.Id).ToArray();
+            foreach(int id in ids)
+            { 
+               await connection.ExecuteAsync(@"UPDATE Movements SET InvoiceNumber = @InvNumber WHERE rowId =@Id ", new { Id = id,
+                                                                                                                         InvNumber = guid   });
+            }
+            
+            var invoices = connection.QueryAsync<Invoice>("SELECT rowid as Id,Amount,Description FROM Movements " +
+                           "WHERE InvoiceNumber = @InvNumber;",new {
+                                 InvNumber = guid 
+                           });
+            var totalInvoice = invoices.Result.Sum(x => x.Amount);
+            
+            Invoice invoice = new Invoice{
+                                           Amount = totalInvoice,Description = "New Invoice",
+                                           InvoiceNumber =guid,InvoiceDate = DateTime.Now 
+            };
+            
             await invoiceRepository.Create(invoice);
             var list = new List<Invoice>();
             list.Add(invoice);
