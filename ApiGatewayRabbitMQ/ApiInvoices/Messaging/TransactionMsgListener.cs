@@ -38,6 +38,11 @@ namespace ApiInvoices.Messaging
             CreateConnection();
             connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
             channel = connection.CreateModel();
+            channel.QueueDeclare(queue: queueName,
+                                  durable: false,
+                                  exclusive: false,
+                                  autoDelete: false,
+                                  arguments: null);
             updateTransactionInInvoices = _updateTransactionInInvoices;
         }
         protected override Task ExecuteAsync(CancellationToken token)
