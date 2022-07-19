@@ -79,7 +79,7 @@ namespace ApiGateway
             {
                 endpoints.MapControllers();
             });
-            //app.UseSwaggerForOcelotUI();
+          //  app.UseSwaggerForOcelotUI();
 
             app.UseSwaggerForOcelotUI(opt =>
             {

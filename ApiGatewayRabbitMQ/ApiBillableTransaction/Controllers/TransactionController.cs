@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiBillableTransaction.TransactionManager;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiBillableTransaction.Controllers
 {
@@ -21,6 +21,7 @@ namespace ApiBillableTransaction.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task Post([FromBody] Movements transaction)
         {
 
