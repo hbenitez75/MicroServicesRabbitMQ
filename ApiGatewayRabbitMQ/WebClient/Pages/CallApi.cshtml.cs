@@ -14,7 +14,7 @@ namespace WebClient.Pages;
            var accessToken = await HttpContext.GetTokenAsync("access_token");
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var content = await client.GetStringAsync("https://localhost:44383/api/Transaction");
+            var content = await client.GetStringAsync("https://localhost:44385/api/Invoicing/Invoicing/Get");
             var parsed = JsonDocument.Parse(content);
             var formatted = JsonSerializer.Serialize(parsed,new JsonSerializerOptions { WriteIndented = true});
 

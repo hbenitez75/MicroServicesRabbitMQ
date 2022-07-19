@@ -29,8 +29,10 @@ namespace ApiBillableTransaction.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<Movements>> Get()
         {
+            //var grants = JsonResult(from c in User.Claims select new { c.Type, c.Value });
             return await transactionRepository.GetAll();
         }
 
