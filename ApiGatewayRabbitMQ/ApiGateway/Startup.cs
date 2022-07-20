@@ -39,7 +39,7 @@ namespace ApiGateway
             services.AddAuthentication("Bearer")
                      .AddJwtBearer("Bearer", options =>
                      {
-                         options.Authority = "https://localhost:5001";
+                         options.Authority = Configuration["DuendeServer"]; 
                          options.TokenValidationParameters = new TokenValidationParameters { ValidateAudience = false };
                      });
             services.AddSwaggerGen(c =>

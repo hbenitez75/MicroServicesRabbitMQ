@@ -18,16 +18,16 @@ public class SeedData
             context.Database.Migrate();
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var hector =  userMgr.FindByNameAsync("Hector").Result;
+            var hector =  userMgr.FindByNameAsync("hector").Result;
             if (hector == null)
             {
                 hector = new ApplicationUser
                 {
-                    UserName = "Hectorr",
+                    UserName = "hector",
                     Email = "hbenitez@arkusnexus.com",
                     EmailConfirmed = true
                 };
-                var result = userMgr.CreateAsync(hector,"arkus").Result;
+                var result = userMgr.CreateAsync(hector, "Arkus1$").Result;
                 if (!result.Succeeded)
                 {
                     throw new Exception(result.Errors.First().Description);
@@ -39,12 +39,16 @@ public class SeedData
                             new Claim(JwtClaimTypes.WebSite, "http://hector.com"),
                         }).Result;
                 if (!result.Succeeded)
-                { 
+                {
                     throw new Exception(result.Errors.First().Description);
                 }
                 Log.Debug("User Hector created");
 
             }
+            else
+                Log.Debug("hector already exists");
+
+
             var alice = userMgr.FindByNameAsync("alice").Result;
             if (alice == null)
             {
