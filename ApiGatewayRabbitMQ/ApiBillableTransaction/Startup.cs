@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiBillableTransaction.TransactionManager;
 using ApiBillableTransaction.Messaging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiBillableTransaction
 {
@@ -35,7 +36,12 @@ namespace ApiBillableTransaction
             services.AddSingleton(new DataBaseName { Name = Configuration["DatabaseName"] });
             services.AddSingleton<IDataBaseCreate,DataBaseCreate>();
             services.AddSingleton<ITransactionRepository, TransactionRepository>();
-            
+            services.AddAuthentication("Bearer")
+                     .AddJwtBearer("Bearer", options =>
+                     {
+                         options.Authority = "https://localhost:5001";
+                         options.TokenValidationParameters = new TokenValidationParameters { ValidateAudience = false };
+                     });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiBillableTransaction", Version = "v1" ,
@@ -58,7 +64,7 @@ namespace ApiBillableTransaction
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

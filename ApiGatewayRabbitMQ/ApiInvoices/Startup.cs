@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiInvoices.Messaging;
 using ApiInvoices.Services;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiInvoices
 {
@@ -38,7 +39,11 @@ namespace ApiInvoices
             services.AddSingleton<IInvoiceRepository, InvoiceRepository>();
             services.AddSingleton<IUpdateTransactionInInvoices, UpdateTransactionInInvoices>();
             services.AddSingleton<IGenerateInvoices, GenerateInvoices>();
-
+            services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
+             {
+                 options.Authority = "https://localhost:5001";
+                 options.TokenValidationParameters = new TokenValidationParameters { ValidateAudience = false };                 
+             });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiInvoices", Version = "v1",
@@ -65,7 +70,7 @@ namespace ApiInvoices
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

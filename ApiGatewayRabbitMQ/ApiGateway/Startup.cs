@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using MMLib.Ocelot.Provider.AppConfiguration;
 using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiGateway
 {
@@ -34,7 +35,13 @@ namespace ApiGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot().AddAppConfiguration();
-            services.AddControllers();
+            services.AddControllers();            
+            services.AddAuthentication("Bearer")
+                     .AddJwtBearer("Bearer", options =>
+                     {
+                         options.Authority = "https://localhost:5001";
+                         options.TokenValidationParameters = new TokenValidationParameters { ValidateAudience = false };
+                     });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiGateway", Version = "v1", 
@@ -71,7 +78,7 @@ namespace ApiGateway
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
 
@@ -79,7 +86,7 @@ namespace ApiGateway
             {
                 endpoints.MapControllers();
             });
-            //app.UseSwaggerForOcelotUI();
+          //  app.UseSwaggerForOcelotUI();
 
             app.UseSwaggerForOcelotUI(opt =>
             {
