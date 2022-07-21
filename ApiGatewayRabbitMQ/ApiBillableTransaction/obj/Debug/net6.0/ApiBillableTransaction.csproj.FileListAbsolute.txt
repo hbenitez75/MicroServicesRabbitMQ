@@ -6,7 +6,13 @@ C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\ApiBillableTransaction.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\ApiBillableTransaction.pdb
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Dapper.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Microsoft.Data.Sqlite.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\RabbitMQ.Client.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\SQLitePCLRaw.batteries_v2.dll
@@ -15,6 +21,7 @@ C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\runtimes\alpine-x64\native\libe_sqlite3.so
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\runtimes\linux-arm\native\libe_sqlite3.so
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\ApiBillableTransaction\bin\Debug\net6.0\runtimes\linux-arm64\native\libe_sqlite3.so

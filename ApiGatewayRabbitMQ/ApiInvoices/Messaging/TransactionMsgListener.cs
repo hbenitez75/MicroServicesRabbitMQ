@@ -12,6 +12,7 @@ using System.Text.Json;
 using System.Text;
 using ApiInvoices.InvoiceManager;
 using ApiInvoices.Services;
+using Serilog;
 
 
 namespace ApiInvoices.Messaging
@@ -36,14 +37,21 @@ namespace ApiInvoices.Messaging
             queueName = optionsRabbitMQ.Value.QueueName;
             
             CreateConnection();
-            connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
-            channel = connection.CreateModel();
-            channel.QueueDeclare(queue: queueName,
-                                  durable: false,
-                                  exclusive: false,
-                                  autoDelete: false,
-                                  arguments: null);
-            updateTransactionInInvoices = _updateTransactionInInvoices;
+            try
+            {
+                connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+                channel = connection.CreateModel();
+                channel.QueueDeclare(queue: queueName,
+                                      durable: false,
+                                      exclusive: false,
+                                      autoDelete: false,
+                                      arguments: null);
+                updateTransactionInInvoices = _updateTransactionInInvoices;
+            }catch (Exception ex)
+            {
+                Log.Debug(ex.Message);
+            }
+
         }
         protected override Task ExecuteAsync(CancellationToken token)
         {
@@ -57,7 +65,15 @@ namespace ApiInvoices.Messaging
 
                 channel.BasicAck(ea.DeliveryTag, false);
             };
-            channel.BasicConsume(queueName, false, consumer); 
+            if (consumer.IsRunning)
+            {
+                channel.BasicConsume(queueName, false, consumer);
+                
+            }
+            else
+            {
+                Log.Debug("No consumer was started");
+            }
             return Task.CompletedTask;
         }
         private void CreateConnection()

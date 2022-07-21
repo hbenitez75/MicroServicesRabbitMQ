@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiBillableTransaction.TransactionManager;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiBillableTransaction.Controllers
 {
@@ -21,6 +21,7 @@ namespace ApiBillableTransaction.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task Post([FromBody] Movements transaction)
         {
 
@@ -28,8 +29,10 @@ namespace ApiBillableTransaction.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IEnumerable<Movements>> Get()
         {
+            //var grants = JsonResult(from c in User.Claims select new { c.Type, c.Value });
             return await transactionRepository.GetAll();
         }
 
