@@ -9,7 +9,7 @@ using Reporting.Services;
 
 namespace Reporting.Messaging
 {
-    public class TransactionMsgListener : BackgroundService
+    public class InvoiceMsgListener : BackgroundService
     {
         public string Host { set; get; }
         public string UserName { set; get; }
@@ -20,7 +20,7 @@ namespace Reporting.Messaging
         private IModel channel;
         private readonly  IInvoiceService _invoiceService;
         
-        public TransactionMsgListener(IOptions<RabbitMQConfiguration> optionsRabbitMQ, IInvoiceService invoiceService)
+        public InvoiceMsgListener(IOptions<RabbitMQConfiguration> optionsRabbitMQ, IInvoiceService invoiceService)
         {
             _invoiceService = invoiceService;
 

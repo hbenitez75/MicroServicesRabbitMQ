@@ -11,8 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;
 
-builder.Services.Configure<RabbitMQConfiguration>(configuration.GetSection("RabbitMq"));
-builder.Services.AddHostedService<TransactionMsgListener>();
+builder.Services.Configure<RabbitMQConfiguration>(configuration.GetSection("RabbitMqReporting"));
+builder.Services.AddHostedService<InvoiceMsgListener>();
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseInMemoryDatabase("Reporting"));
 builder.Services.AddInMemorySubscriptions();
 builder.Services.AddSingleton<IInvoiceRepository, InvoiceRepository>();

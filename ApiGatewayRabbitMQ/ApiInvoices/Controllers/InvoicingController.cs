@@ -43,7 +43,7 @@ namespace ApiInvoices.Controllers
         }
         
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task Post([FromBody] Invoice invoice)
         {
             await invoiceService.Create(invoice);

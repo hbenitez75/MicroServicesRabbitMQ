@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using ApiInvoices.Messaging;
 using ApiInvoices.Services;
 using Microsoft.IdentityModel.Tokens;
+using ApiBillableTransaction.Messaging;
 
 namespace ApiInvoices
 {
@@ -34,7 +35,10 @@ namespace ApiInvoices
             services.Configure<RabbitMQConfiguration>(Configuration.GetSection("RabbitMq"));
             services.Configure<RabbitMQConfigurationReporting>(Configuration.GetSection("RabbitMqReporting"));
             services.AddHostedService<TransactionMsgListener>();
+            services.AddTransient<ISendInvoiceMsg, SendInvoiceMsg>();
             services.AddControllers();
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddSingleton(new DataBaseName { Name = Configuration["DatabaseName"] });
             services.AddSingleton<IDataBaseCreate, DataBaseCreate>();
             services.AddSingleton<IInvoiceRepository, InvoiceRepository>();

@@ -21,7 +21,7 @@ namespace ApiBillableTransaction.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task Post([FromBody] Movements transaction)
         {
 
