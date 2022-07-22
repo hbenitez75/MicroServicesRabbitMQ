@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityServerAspNetIdentity.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211227182747_Users")]
+    [Migration("20220721160243_Users")]
     partial class Users
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
