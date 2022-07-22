@@ -1,0 +1,21 @@
+﻿@page
+@model WebClient.Pages.AddTransactionModel
+@{
+    <p>Enter a transaction:</p>
+
+<form method="post">    
+    <div>Description:<input asp-for="Transaction!.Description" /></div>
+    <br>
+    <div>Bill Date: <input asp-for="Transaction.BillDate" /></div>
+    <br>
+    <div>Amount: <input asp-for="Transaction.Amount" /></div>
+    <br>
+    <div>Status: <input asp-for="Transaction.Status" /></div>
+    <br>
+    <div>Transaction Date: <input asp-for="Transaction.TransactionDate" /></div>
+    <br>
+    <div>Inovice Number: <input asp-for="Transaction.InvoiceNumber" /></div>    
+    <br>
+    <input type="submit" />
+</form>
+}
