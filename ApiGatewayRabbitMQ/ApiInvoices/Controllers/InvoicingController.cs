@@ -18,13 +18,14 @@ namespace ApiInvoices.Controllers
     {
         private readonly IInvoiceRepository invoiceRepository;
         private readonly IGenerateInvoices generateInvoices;
-        public InvoicingController(IInvoiceRepository _invoiceRepository,
-            IGenerateInvoices _generateInvoices)
+        private readonly IInvoiceService invoiceService;
+        public InvoicingController(IInvoiceRepository _invoiceRepository, IGenerateInvoices _generateInvoices, IInvoiceService _invoiceService)
         {
             invoiceRepository = _invoiceRepository;
             generateInvoices = _generateInvoices;
+            invoiceService = _invoiceService;
         }
-        
+
         [HttpPut]     
         [Authorize]
         public async Task Put([FromBody]  Invoice invoice)
@@ -45,7 +46,7 @@ namespace ApiInvoices.Controllers
         [Authorize]
         public async Task Post([FromBody] Invoice invoice)
         {
-            await invoiceRepository.Create(invoice);
+            await invoiceService.Create(invoice);
         }
 
         [HttpGet]

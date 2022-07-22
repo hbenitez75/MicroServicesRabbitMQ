@@ -49,3 +49,5 @@ C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.pdb
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.genruntimeconfig.cache
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\ref\Reporting.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\RabbitMQ.Client.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Serilog.dll

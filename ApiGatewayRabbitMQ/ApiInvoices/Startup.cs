@@ -32,6 +32,7 @@ namespace ApiInvoices
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<RabbitMQConfiguration>(Configuration.GetSection("RabbitMq"));
+            services.Configure<RabbitMQConfigurationReporting>(Configuration.GetSection("RabbitMqReporting"));
             services.AddHostedService<TransactionMsgListener>();
             services.AddControllers();
             services.AddSingleton(new DataBaseName { Name = Configuration["DatabaseName"] });
