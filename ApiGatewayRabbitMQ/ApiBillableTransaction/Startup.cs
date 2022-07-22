@@ -29,6 +29,10 @@ namespace ApiBillableTransaction
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+            options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyHeader(); });
+            });
             services.AddControllers();
             services.AddOptions();
             services.Configure<RabbitMQConfiguration>(Configuration.GetSection("RabbitMq"));
@@ -71,7 +75,7 @@ namespace ApiBillableTransaction
             {
                 endpoints.MapControllers();
             });
-
+            app.UseCors("CorsPolicy");
             serviceProvider.GetService<IDataBaseCreate>().Setup();
         }
     }
