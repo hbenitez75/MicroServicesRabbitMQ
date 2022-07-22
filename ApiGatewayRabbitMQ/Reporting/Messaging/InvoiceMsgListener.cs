@@ -49,7 +49,7 @@ namespace Reporting.Messaging
         }
         protected override Task ExecuteAsync(CancellationToken token)
         {
-            var consumer = new EventingBasicConsumer(channel);
+            var consumer = new EventingBasicConsumer(channel); 
             consumer.Received += (ch, ea) =>
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
@@ -64,15 +64,9 @@ namespace Reporting.Messaging
 
                 channel.BasicAck(ea.DeliveryTag, false);
             };
-            if (consumer.IsRunning)
-            {
-                channel.BasicConsume(QueueName, false, consumer);
-                
-            }
-            else
-            {
-                Log.Debug("No consumer was started");
-            }
+            
+            channel.BasicConsume(QueueName, false, consumer);
+           
             return Task.CompletedTask;
         }
         private void CreateConnection()

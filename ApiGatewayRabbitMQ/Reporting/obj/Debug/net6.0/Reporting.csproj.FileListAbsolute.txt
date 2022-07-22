@@ -1,3 +1,4 @@
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\appsettings.Development.json
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\appsettings.json
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Reporting.exe
@@ -28,12 +29,13 @@ C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\HotChocolate.Utilities.Introspection.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\HotChocolate.Validation.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
-C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.Extensions.DiagnosticAdapter.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\RabbitMQ.Client.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Serilog.dll
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.csproj.AssemblyReference.cache
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.GeneratedMSBuildEditorConfig.editorconfig
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.AssemblyInfoInputs.cache
@@ -49,5 +51,3 @@ C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.pdb
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.genruntimeconfig.cache
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\ref\Reporting.dll
-C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\RabbitMQ.Client.dll
-C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Serilog.dll
