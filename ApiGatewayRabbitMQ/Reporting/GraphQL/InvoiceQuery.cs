@@ -5,8 +5,7 @@ namespace Reporting.GraphQL
 {
     public class Query
     {
-        public async Task<List<Invoice>>
-        GetAllInvoices([Service] IInvoiceRepository InvoiceRepository, [Service] ITopicEventSender eventSender)
+        public async Task<List<Invoice>> GetAllInvoices([Service] IInvoiceRepository InvoiceRepository, [Service] ITopicEventSender eventSender)
         {
             List<Invoice> Invoices = InvoiceRepository.GetInvoices();
             await eventSender.SendAsync("ReturnedInvoices", Invoices);

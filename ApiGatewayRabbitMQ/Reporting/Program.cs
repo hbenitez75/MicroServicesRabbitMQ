@@ -1,11 +1,11 @@
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Playground;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Reporting.Data;
 using Reporting.GraphQL;
 using Reporting.Messaging;
 using Reporting.Services;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,11 +17,13 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.Us
 builder.Services.AddInMemorySubscriptions();
 builder.Services.AddSingleton<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddSingleton<IInvoiceService, InvoiceService>();
-builder.Services
-        .AddGraphQLServer()
-        .AddType<InvoiceType>()
-        .AddQueryType<Query>()
-        .AddMutationType<InvoiceMutation>();
+builder.Services.AddGraphQLServer().AddType<InvoiceType>().AddQueryType<Query>().AddMutationType<InvoiceMutation>();
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
+{
+    options.Authority = configuration.GetValue<string>("DuendeServer");
+    options.TokenValidationParameters = new TokenValidationParameters { ValidateAudience = false };
+});
 
 var app = builder.Build();
 
@@ -36,20 +38,25 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
     {
+        //endpoints.MapGraphQL().RequireAuthorization().WithOptions(new GraphQLServerOptions
         endpoints.MapGraphQL().WithOptions(new GraphQLServerOptions
         {
             EnableSchemaRequests = true,
             EnableGetRequests = true,
             AllowedGetOperations = AllowedGetOperations.QueryAndMutation,
-
         });
     });
 
 
 
 app.MapGet("/", () => "Hello World!");
+
 app.Run();

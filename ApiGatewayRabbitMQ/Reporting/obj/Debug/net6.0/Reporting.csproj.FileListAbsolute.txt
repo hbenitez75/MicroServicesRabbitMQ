@@ -51,3 +51,11 @@ C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.pdb
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\Reporting.genruntimeconfig.cache
 C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\obj\Debug\net6.0\ref\Reporting.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\projects\MicroServicesRabbitMQ\ApiGatewayRabbitMQ\Reporting\bin\Debug\net6.0\HotChocolate.AspNetCore.Authorization.dll
