@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiBillableTransaction.TransactionManager;
 using ApiBillableTransaction.Messaging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiBillableTransaction
 {
@@ -28,14 +29,23 @@ namespace ApiBillableTransaction
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+            options.AddPolicy("CorsPolicy", policy => { policy.AllowAnyHeader(); });
+            });
             services.AddControllers();
             services.AddOptions();
             services.Configure<RabbitMQConfiguration>(Configuration.GetSection("RabbitMq"));
             services.AddTransient<ISendTransaction, SendTransaction>();
             services.AddSingleton(new DataBaseName { Name = Configuration["DatabaseName"] });
             services.AddSingleton<IDataBaseCreate,DataBaseCreate>();
-            services.AddSingleton<ITransactionRepository, TransactionRepository>();
-            
+            services.AddSingleton<ITransactionRepository, TransactionRepository>();            
+            services.AddAuthentication("Bearer")
+                     .AddJwtBearer("Bearer", options =>
+                     {
+                         options.Authority = Configuration["DuendeServer"];
+                         options.TokenValidationParameters = new TokenValidationParameters { ValidateAudience = false };
+                     });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiBillableTransaction", Version = "v1" ,
@@ -58,14 +68,14 @@ namespace ApiBillableTransaction
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
+            app.UseCors("CorsPolicy");
             serviceProvider.GetService<IDataBaseCreate>().Setup();
         }
     }

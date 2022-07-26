@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using ApiInvoices.Data;
 using ApiInvoices.InvoiceManager;
 using ApiInvoices.Services;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiInvoices.Controllers
 {
@@ -26,6 +26,7 @@ namespace ApiInvoices.Controllers
         }
         
         [HttpPut]     
+        [Authorize]
         public async Task Put([FromBody]  Invoice invoice)
         {
             await invoiceRepository.Update(invoice);
@@ -33,6 +34,7 @@ namespace ApiInvoices.Controllers
         
         [HttpGet]
         [Route("GetByRange")]
+        [Authorize]
         public async Task<IEnumerable<Invoice>> GetByRange( DateTime from,DateTime to  )
         {
             
@@ -40,6 +42,7 @@ namespace ApiInvoices.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         public async Task Post([FromBody] Invoice invoice)
         {
             await invoiceRepository.Create(invoice);
@@ -47,6 +50,7 @@ namespace ApiInvoices.Controllers
 
         [HttpGet]
         [Route("Get")]
+        [Authorize]
         public  async Task<IEnumerable<Invoice>> Get()
         {
              return await invoiceRepository.GetInvoices();
