@@ -16,8 +16,9 @@ builder.Services.AddHostedService<InvoiceMsgListener>();
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseInMemoryDatabase("Reporting"));
 builder.Services.AddInMemorySubscriptions();
 builder.Services.AddSingleton<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddSingleton<IInvoiceItemRepository, InvoiceItemRepository>();
 builder.Services.AddSingleton<IInvoiceService, InvoiceService>();
-builder.Services.AddGraphQLServer().AddType<InvoiceType>().AddQueryType<Query>().AddMutationType<InvoiceMutation>();
+builder.Services.AddGraphQLServer().AddType<InvoiceType>().AddType<InvoiceItemType>().AddQueryType<Query>().AddMutationType<InvoiceMutation>();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
 {

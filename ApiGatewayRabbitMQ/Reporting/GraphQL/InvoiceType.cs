@@ -12,6 +12,7 @@ namespace Reporting.GraphQL
             descriptor.Field(i => i.Amount).Type<FloatType>();
             descriptor.Field(i => i.InvoiceNumber).Type<StringType>();
             descriptor.Field(i => i.Paid).Type<IntType>();
+            descriptor.Field<InvoiceItemResolver>(ii => ii.GetInvoiceItems(default, default));
         }
     }
 }
