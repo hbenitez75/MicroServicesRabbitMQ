@@ -46,8 +46,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
     {
-        //endpoints.MapGraphQL().RequireAuthorization().WithOptions(new GraphQLServerOptions
-        endpoints.MapGraphQL().WithOptions(new GraphQLServerOptions
+        endpoints.MapGraphQL().RequireAuthorization().WithOptions(new GraphQLServerOptions
         {
             EnableSchemaRequests = true,
             EnableGetRequests = true,
