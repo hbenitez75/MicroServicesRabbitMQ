@@ -33,6 +33,7 @@ namespace ApiProducts
             services.AddSingleton(new DatabaseProperties { DataSource = Configuration["DatabaseName"] });
             services.AddSingleton<IDatabaseCreate, DatabaseCreate>();
             services.AddMediatR(typeof(Startup));
+            services.AddMemoryCache();
             
             services.AddSwaggerGen(c =>
             {

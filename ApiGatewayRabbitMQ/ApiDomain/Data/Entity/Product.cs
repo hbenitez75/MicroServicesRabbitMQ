@@ -55,11 +55,3 @@ public class Product
         }
     }
 }
-
-public class Sample
-{
-    public Sample()
-    {
-        var product = Product.NewProduct();
-    }
-}
