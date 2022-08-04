@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "0ebj6yMPpvbuc+KdN+cfXvNJ4RBktnxwWl541GFr+0g=",
+  "Source": "ApiBillableTransaction",
+  "BasePath": "_content/ApiBillableTransaction",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
