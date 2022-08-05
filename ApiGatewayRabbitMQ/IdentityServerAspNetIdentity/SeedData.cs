@@ -15,9 +15,32 @@ public class SeedData
         using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {
             var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            context.Database.Migrate();
+           // context.Database.Migrate();
 
             var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            
+            var roleArkusAdim = roleMgr.FindByNameAsync("ArkusAdmin").Result;
+            if (roleArkusAdim == null)
+            {
+                roleArkusAdim = new IdentityRole
+                {
+                    Id = "1",
+                    Name = "ArkusAdmin",
+                    NormalizedName = "ArkusAdmin"
+                };
+                var resultRole = roleMgr.CreateAsync(roleArkusAdim).Result;
+                if (!resultRole.Succeeded)
+                {
+                    throw new Exception(resultRole.Errors.First().Description);
+                }
+                Log.Debug("Role ArkusAdmin Added");
+            }
+            else
+            {
+                Log.Debug("Role ArkusAdmin Already Exists");
+            }
+            
             var hector =  userMgr.FindByNameAsync("hector").Result;
             if (hector == null)
             {
@@ -37,6 +60,8 @@ public class SeedData
                             new Claim(JwtClaimTypes.GivenName, "Don"),
                             new Claim(JwtClaimTypes.FamilyName, "Benitez"),
                             new Claim(JwtClaimTypes.WebSite, "http://hector.com"),
+                            new Claim("arquitecto","si"),
+
                         }).Result;
                 if (!result.Succeeded)
                 {
@@ -44,9 +69,21 @@ public class SeedData
                 }
                 Log.Debug("User Hector created");
 
+                var resultRole = userMgr.AddToRoleAsync(hector, "ArkusAdmin").Result;
+                if (!resultRole.Succeeded)
+                {
+                    Log.Debug("Hector added to role Arkusadmin Failed " + result.Errors.First().Description);
+                    Log.Debug(result.Errors.First().Description);
+                    throw new Exception(resultRole.Errors.First().Description);
+                }
+                Log.Debug("Hector added to role Arkusadmin");
+
+
             }
             else
+            {
                 Log.Debug("hector already exists");
+            }
 
 
             var alice = userMgr.FindByNameAsync("alice").Result;

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace WebClient.Pages;
+namespace WebClient.Pages.Transaction;
 
     public class CallApiModel : PageModel
     {

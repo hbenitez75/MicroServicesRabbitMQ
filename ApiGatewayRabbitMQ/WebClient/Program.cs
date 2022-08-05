@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
-
-JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using IdentityModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = "Cookies";
@@ -16,13 +20,28 @@ builder.Services.AddAuthentication(options =>
      options.ClientId = "web";
      options.ClientSecret = "secret";
      options.ResponseType = "code";
+     options.SaveTokens = true;
+
      options.Scope.Clear();
      options.Scope.Add("openid");
      options.Scope.Add("profile");
+     options.Scope.Add("email");     
      options.Scope.Add("api1");
      options.Scope.Add("offline_access");
+     options.Scope.Add("leerescribir");
+     options.ClaimActions.MapUniqueJsonKey("arquitecto", "arquitecto");     
+     options.ClaimActions.MapUniqueJsonKey("website", "website");
+     options.ClaimActions.MapUniqueJsonKey("preferred_username", "preferred_username");
+     options.ClaimActions.MapUniqueJsonKey(JwtClaimTypes.Role, JwtClaimTypes.Role);
      options.GetClaimsFromUserInfoEndpoint = true;
-     options.SaveTokens = true;
+     
+     options.TokenValidationParameters = new TokenValidationParameters
+     {
+        NameClaimType = JwtClaimTypes.Name,
+        RoleClaimType = JwtClaimTypes.Role
+     };
+
+     
  });
 
 // Add services to the container.

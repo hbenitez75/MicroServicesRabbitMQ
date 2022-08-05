@@ -30,10 +30,19 @@ namespace ApiBillableTransaction.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IEnumerable<Movements>> Get()
+        public async Task<IActionResult> Get()
         {
-            //var grants = JsonResult(from c in User.Claims select new { c.Type, c.Value });
-            return await transactionRepository.GetAll();
+            
+            var grants =  from c in User.Claims select new { c.Type, c.Value };
+            if (grants.Any() && grants.Where(x => x.Type == "arquitecto" && x.Value == "si").Any())
+            {
+                var transactions = await transactionRepository.GetAll();    
+                return Ok(transactions);
+            }
+            else
+                return Unauthorized();
+           
+            
         }
 
         [HttpPut]

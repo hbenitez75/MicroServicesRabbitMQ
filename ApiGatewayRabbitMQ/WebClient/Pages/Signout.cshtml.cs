@@ -1,3 +1,5 @@
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,6 +9,7 @@ namespace WebClient.Pages
     {
         public IActionResult OnGet()
         {
+            
             return SignOut("Cookies", "oidc");
         }
     }

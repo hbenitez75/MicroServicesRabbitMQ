@@ -46,6 +46,15 @@ namespace ApiBillableTransaction
                          options.Authority = Configuration["DuendeServer"];
                          options.TokenValidationParameters = new TokenValidationParameters { ValidateAudience = false };
                      });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                 {
+                     policy.RequireAuthenticatedUser();
+                     policy.RequireClaim("scope", "api1");
+
+                 });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiBillableTransaction", Version = "v1" ,
@@ -76,6 +85,7 @@ namespace ApiBillableTransaction
                 endpoints.MapControllers();
             });
             app.UseCors("CorsPolicy");
+           
             serviceProvider.GetService<IDataBaseCreate>().Setup();
         }
     }
