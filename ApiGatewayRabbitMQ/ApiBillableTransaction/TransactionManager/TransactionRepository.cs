@@ -28,8 +28,6 @@ namespace ApiBillableTransaction.TransactionManager
             { 
                 sendTransaction.SendTransactionMsg(transaction);                 
             }
-
-
         }
 
         public async Task<IEnumerable<Movements>> GetAll()
