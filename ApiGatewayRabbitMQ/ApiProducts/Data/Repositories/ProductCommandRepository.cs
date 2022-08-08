@@ -1,17 +1,16 @@
 ﻿using System.Threading.Tasks;
 using ApiDomain.Data;
 using ApiDomain.Data.Entity;
-using ApiDomain.Data.Repository;
 using Dapper;
 using Microsoft.Data.Sqlite;
 
-namespace ApiProducts.Data;
+namespace ApiProducts.Data.Repositories;
 
-public class ProductStore : ICommandRepository<Product, int>
+public class ProductCommandRepository : IProductCommandRepository
 {
     private readonly DatabaseProperties properties;
 
-    public ProductStore(DatabaseProperties properties)
+    public ProductCommandRepository(DatabaseProperties properties)
     {
         this.properties = properties;
     }

@@ -1,18 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ApiDomain.Data;
 using ApiProducts.Data;
+using ApiProducts.Data.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace ApiProducts
@@ -32,13 +27,21 @@ namespace ApiProducts
             
             services.AddSingleton(new DatabaseProperties { DataSource = Configuration["DatabaseName"] });
             services.AddSingleton<IDatabaseCreate, DatabaseCreate>();
+            services.AddScoped<IProductQueryRepository, ProductQueryRepository>();
+            services.AddScoped<IProductCommandRepository, ProductCommandRepository>();
+            
             services.AddMediatR(typeof(Startup));
-            services.AddMemoryCache();
+            // services.AddMemoryCache();
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Configuration.GetConnectionString("Redis");
+                options.InstanceName = "ProductCache_";
+            });
             
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiInvoices", Version = "v1",
-                        Description = "This Microservice Gets Transactions and creates Invoices" ,
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiProducts", Version = "v1",
+                        Description = "This Microservice Gets Transactions and creates Products" ,
                         Contact = new OpenApiContact{Name = "Hector Benitez",
                             Email = "hbenitez@arkusnexus.com"
                         },
