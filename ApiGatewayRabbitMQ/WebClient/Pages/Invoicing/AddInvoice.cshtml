@@ -1,0 +1,21 @@
+﻿@page
+@model WebClient.Pages.Invoicing.AddInvoiceModel
+@{
+   <p>Enter an Invoice: </p>
+   <form method="post" >
+     <div> Description: <input asp-for ="invoice.Description"> </div>
+     <br/>
+     <div> Invoice Date: <input asp-for ="invoice.InvoiceDate"> </div>
+     <br/>
+     <div> Paid Date: <input asp-for="invoice.PaidDate"/></div>
+     <br/>
+     <div> Amount: <input asp-for="invoice.Amount"/> </div>
+     <br/>
+     <div> Invoice Number: <input asp-for ="invoice.InvoiceNumber"/> </div>
+     <br/>
+     <div> Paid: <input asp-for = "invoice.Paid" /></div>
+     <br/>
+     <input type= "submit"/>
+
+   </form>
+}

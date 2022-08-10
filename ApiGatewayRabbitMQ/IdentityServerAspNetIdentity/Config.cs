@@ -10,13 +10,33 @@ public static class Config
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
+            new IdentityResources.Email(),
+            
+            
+            
+        };
+    public static IEnumerable<ApiResource> ApiIdentityResources =>
+        new List<ApiResource>
+        {                        
+            new ApiResource
+            {
+                Name ="Transaccion",
+                DisplayName ="Transaccion",
+                Scopes ={"leerescribir"},
+                UserClaims = new List<string>
+                {
+                    "arquitecto"
+                }
+            }
+
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
         new List<ApiScope>
         {
             new ApiScope("api1"),
-            new ApiScope("My API")
+            new ApiScope("My API"),            
+            new ApiScope{ Name ="leerescribir",UserClaims = new List<string> { "arquitecto" } }
         };
 
     public static IEnumerable<Client> Clients =>
@@ -42,13 +62,18 @@ public static class Config
                 AllowedGrantTypes = GrantTypes.Code,
 
                 RedirectUris = { "https://localhost:5002/signin-oidc" },
-                FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
+                //FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
                 PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
 
                 AllowOfflineAccess = true,
                 AllowedScopes = new List<string> { IdentityServerConstants.StandardScopes.OpenId, 
-                                                   IdentityServerConstants.StandardScopes.Profile, 
-                                                   "api1" }
+                                                   IdentityServerConstants.StandardScopes.Profile,
+                                                   IdentityServerConstants.StandardScopes.Email,                                                                            
+                                                   "leerescribir"
+                },
+                 AlwaysIncludeUserClaimsInIdToken = true,
+                 
+
             },
         };
 }

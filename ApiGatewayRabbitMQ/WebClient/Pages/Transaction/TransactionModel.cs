@@ -1,4 +1,4 @@
-﻿namespace WebClient.Pages
+﻿namespace WebClient.Pages.Transaction
 {
     public class TransactionModel
     {
