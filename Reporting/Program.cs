@@ -1,3 +1,4 @@
+using ApiDomain.Messaging;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Playground;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;
 
-builder.Services.Configure<RabbitMQConfiguration>(configuration.GetSection("RabbitMqReporting"));
+builder.Services.Configure<BrokerConnectionProperties>(configuration.GetSection("RabbitMqReporting"));
 builder.Services.AddHostedService<InvoiceMsgListener>();
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseInMemoryDatabase("Reporting"));
 builder.Services.AddInMemorySubscriptions();

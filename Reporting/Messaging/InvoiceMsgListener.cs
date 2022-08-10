@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text;
 using Serilog;
 using Reporting.Services;
+using ApiDomain.Messaging;
 
 namespace Reporting.Messaging
 {
@@ -20,7 +21,7 @@ namespace Reporting.Messaging
         private IModel channel;
         private readonly  IInvoiceService _invoiceService;
         
-        public InvoiceMsgListener(IOptions<RabbitMQConfiguration> optionsRabbitMQ, IInvoiceService invoiceService)
+        public InvoiceMsgListener(IOptions<BrokerConnectionProperties> optionsRabbitMQ, IInvoiceService invoiceService)
         {
             _invoiceService = invoiceService;
 
