@@ -16,12 +16,13 @@ namespace ApiInvoices.InvoiceManager
             dataBaseName = _dataBaseName;
         }
 
-        public async Task Create(Invoice invoice)
+        public async Task<int> Create(Invoice invoice)
         {
             var connection = new SqliteConnection(dataBaseName.Name);
-            await connection.ExecuteAsync("INSERT INTO Invoice(InvoiceNumber,Description,InvoiceDate,Amount,Paid,PaidDate) "+
+            var numberOfAffectedRows = await connection.ExecuteAsync("INSERT INTO Invoice(InvoiceNumber,Description,InvoiceDate,Amount,Paid,PaidDate) "+
               "VALUES(@InvoiceNumber,@Description,@InvoiceDate,@Amount,@Paid,@PaidDate);",invoice);
 
+            return numberOfAffectedRows; ;
         }
 
         public async Task Update(Invoice invoice)

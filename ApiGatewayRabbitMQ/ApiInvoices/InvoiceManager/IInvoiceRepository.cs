@@ -8,7 +8,7 @@ namespace ApiInvoices.InvoiceManager
 {
     public interface IInvoiceRepository
     {
-        Task Create(Invoice invoice );
+        Task<int> Create(Invoice invoice );
         Task Update(Invoice invoice);
         Task<IEnumerable<Invoice>> GetInvoices();
         Task<IEnumerable<Invoice>> GetInvoiceByNumber(string invoiceNumber);
