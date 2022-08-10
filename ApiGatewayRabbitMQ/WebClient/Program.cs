@@ -8,6 +8,7 @@ using IdentityModel;
 var builder = WebApplication.CreateBuilder(args);
 
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = "Cookies";
@@ -25,22 +26,24 @@ builder.Services.AddAuthentication(options =>
      options.Scope.Clear();
      options.Scope.Add("openid");
      options.Scope.Add("profile");
-     options.Scope.Add("email");     
-     options.Scope.Add("api1");
-     options.Scope.Add("offline_access");
+     options.Scope.Add("email");
+     //options.Scope.Add("Transaccion");
+     ///options.Scope.Add("api1");
+     options.Scope.Add("offline_access");     
      options.Scope.Add("leerescribir");
+     
      options.ClaimActions.MapUniqueJsonKey("arquitecto", "arquitecto");     
      options.ClaimActions.MapUniqueJsonKey("website", "website");
      options.ClaimActions.MapUniqueJsonKey("preferred_username", "preferred_username");
-     options.ClaimActions.MapUniqueJsonKey(JwtClaimTypes.Role, JwtClaimTypes.Role);
+     options.ClaimActions.MapJsonKey(JwtClaimTypes.Role, JwtClaimTypes.Role);
      options.GetClaimsFromUserInfoEndpoint = true;
-     
+     options.ClaimActions.MapAllExcept("iss", "nbf", "exp", "aud", "nonce");
      options.TokenValidationParameters = new TokenValidationParameters
      {
         NameClaimType = JwtClaimTypes.Name,
         RoleClaimType = JwtClaimTypes.Role
      };
-
+     
      
  });
 

@@ -21,8 +21,8 @@ public static class Config
             new ApiResource
             {
                 Name ="Transaccion",
-                DisplayName ="leerescribir",
-                Scopes ={"leerescribir,api1"},
+                DisplayName ="Transaccion",
+                Scopes ={"leerescribir"},
                 UserClaims = new List<string>
                 {
                     "arquitecto"
@@ -68,8 +68,7 @@ public static class Config
                 AllowOfflineAccess = true,
                 AllowedScopes = new List<string> { IdentityServerConstants.StandardScopes.OpenId, 
                                                    IdentityServerConstants.StandardScopes.Profile,
-                                                   IdentityServerConstants.StandardScopes.Email,                                                  
-                                                   "api1",
+                                                   IdentityServerConstants.StandardScopes.Email,                                                                            
                                                    "leerescribir"
                 },
                  AlwaysIncludeUserClaimsInIdToken = true,

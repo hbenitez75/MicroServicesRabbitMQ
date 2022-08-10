@@ -86,12 +86,12 @@ public class SeedData
             }
 
 
-            var alice = userMgr.FindByNameAsync("alice").Result;
+            var alice = userMgr.FindByNameAsync("lolo").Result;
             if (alice == null)
             {
                 alice = new ApplicationUser
                 {
-                    UserName = "alice",
+                    UserName = "lolo",
                     Email = "AliceSmith@email.com",
                     EmailConfirmed = true,
                 };
@@ -102,20 +102,21 @@ public class SeedData
                 }
 
                 result = userMgr.AddClaimsAsync(alice, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                            new Claim(JwtClaimTypes.GivenName, "Alice"),
-                            new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                            new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
+                            new Claim(JwtClaimTypes.Name, "Arturo Renteria"),
+                            new Claim(JwtClaimTypes.GivenName, "lolo"),
+                            new Claim(JwtClaimTypes.FamilyName, "R"),
+                            new Claim(JwtClaimTypes.WebSite, "http://lolo.com"),
+                            new Claim("arquitecto","no"),
                         }).Result;
                 if (!result.Succeeded)
                 {
                     throw new Exception(result.Errors.First().Description);
                 }
-                Log.Debug("alice created");
+                Log.Debug("lolo created");
             }
             else
             {
-                Log.Debug("alice already exists");
+                Log.Debug("lolo already exists");
             }
 
             var bob = userMgr.FindByNameAsync("bob").Result;

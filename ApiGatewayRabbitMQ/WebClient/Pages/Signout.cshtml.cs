@@ -9,7 +9,8 @@ namespace WebClient.Pages
     {
         public IActionResult OnGet()
         {
-            
+            var claims = User.Claims;
+            var claimsp = HttpContext.User.Claims;
             return SignOut("Cookies", "oidc");
         }
     }

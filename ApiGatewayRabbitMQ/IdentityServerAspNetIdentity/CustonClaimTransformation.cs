@@ -8,13 +8,13 @@ namespace IdentityServerAspNetIdentity
         public Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
         {
             ClaimsIdentity claimsIdentity = new ClaimsIdentity();
-            var claimType = "location";
+            var claimType = "arquitecto";
             if (!principal.HasClaim(claim => claim.Type == claimType))
             {
-                claimsIdentity.AddClaim(new Claim(claimType, "location"));
+                claimsIdentity.AddClaim(new Claim(claimType, "arquitecto"));
             }
 
-           // principal.AddIdentity(claimsIdentity);
+            principal.AddIdentity(claimsIdentity);
             return Task.FromResult(principal);
         }
     }

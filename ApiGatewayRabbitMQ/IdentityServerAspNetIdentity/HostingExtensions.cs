@@ -16,7 +16,7 @@ internal static class HostingExtensions
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-        //builder.Services.AddScoped<IClaimsTransformation, CustonClaimTransformation>();
+      //  builder.Services.AddScoped<IClaimsTransformation, CustonClaimTransformation>();
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
@@ -35,7 +35,7 @@ internal static class HostingExtensions
                 options.EmitStaticAudienceClaim = true;
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
-            .AddInMemoryApiResources(Config.ApiIdentityResources)
+            .AddInMemoryApiResources(Config.ApiIdentityResources)            
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
             .AddAspNetIdentity<ApplicationUser>();
