@@ -1,0 +1,30 @@
+#This docker file was generated in order to container this project and allow it to run as an independent service, there are some considerations listed below:
+#1. This service is woking with ssl, for run it it in a development environment is necessary  to generate a develop certificate (pfx) and include it in the docker run command.
+#2. All the secure ports used must be mapped in the  docker run command.
+
+#Generating the development certificate, example: 
+#dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\aspnetapp.pfx -p Arkus@123
+#dotnet dev-certs https --trust
+#Build the image, example: docker build -f ApiProductsDockerfile -t apiproductsimg .
+#Run the container (development environment), example: docker run -it --rm -p 41600:80 -p 44362:443 --name apiproductscnr --network bridge -e ASPNETCORE_URLS="https://+;http://+" -e ASPNETCORE_HTTPS_PORT=44362 -e ASPNETCORE_Kestrel__Certificates__Default__Password="Arkus@123" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx -v C:/Users/mind/.aspnet/https:/https apiproductsimg 
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /source
+COPY . .
+WORKDIR "/source/Reporting"
+RUN dotnet restore "Reporting.csproj"
+RUN dotnet build "Reporting.csproj" -c Release -o /app/build
+
+
+FROM build AS publish
+RUN dotnet publish "Reporting.csproj" -c Debug -o /app/publish
+
+FROM base as final 
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+ENTRYPOINT ["dotnet", "Reporting.dll"]
